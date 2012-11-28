@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/booktype.css">
+</head>
+<body>
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" id="brand" href="./" >
+            Tracker: Principles of Creativity in the Workplace</a>
+
+            <!--<div class="pull-right">
+                <ul class="nav">
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Reports</a></li>
+                    <li><a href="#">Help</a></li>
+                    <li><a href="#">Login</a></li>
+                </ul>
+            </div>-->
+        </div>
+    </div>
+</div>
+<div></div>
+<div class="navbar">
+    <div class="center-right"><div class="center-left" id="feedback"></div></div>
+    <div class="navbar-inner">
+        <div class="container">
+        <ul class="nav">
+            <li class="active"><a href="./">Tasks</a></li>
+            <li><a href="users.html">Users</a></li>
+            <li><a href="chapters.html">Chapters</a></li>
+        </ul>
+        <div class="pull-right">
+            <button id="add" class="btn btn-primary pull-left right-offset1">Add task</button>
+        </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" id="main">
+    <div class="row-fluid">
+        <div class="span4 panel">
+            <header>Active
+                <div class="pull-right"><label><input type="checkbox" name="hide" class="hideCompleted" checked="checked"> Hide completed</label></div></header>
+            <ul class="unstyled list-items" id="active"></ul>
+        </div>
+        <div class="span4 panel">
+            <header>Assigned <div class="pull-right"><label><input type="checkbox" name="hide" class="hideCompleted" checked="checked"> Hide completed</label></div></header>
+            <ul class="unstyled list-items" id="assigned"></ul>
+        </div>
+        <div class="span4 panel">
+            <header>Icebucket <div class="pull-right"><label><input type="checkbox" name="hide" class="hideCompleted" checked="checked"> Hide completed</label></div></header>
+            <ul class="unstyled list-items" id="icebucket">
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script id="collapsed-view-template" type="text/x-handlebars-template">
+    <li class="item {{#if completed}}disabled hide{{/if}}">
+        {{#if owner}}<span class="pull-right muted">{{owner}}</span>{{/if}}
+        <i class="icon-edit edit-task" {{#if index}}data-id="{{index}}"{{/if}}></i>
+        <a class="taskdetail" {{#if index}}data-id="{{index}}"{{/if}} href="#">{{title}}{{#if chaptertitle}}</a><br/><span class="muted">-{{chaptertitle}}-</span>{{/if}}
+    </li>
+</script>
+
+<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.23.custom.min.js"></script>
+<script type="text/javascript" src="js/handlebars-1.0.rc.1.js"></script>
+<script type="text/javascript" src="js/tracker.js"></script>
+<script type="text/javascript">
+    (function ($, H) {        
+        var windowHeight = $(window).height(),
+                $main = $('#main'),
+                $feedback = $('#feedback');
+        $main.css('height', parseInt( windowHeight - $main.offset().top) + 'px');
+        $('.list-items').each(function (i, item) {
+            var $this = $(item);
+            $this.css('height', parseInt(windowHeight - $this.offset().top - 15) + 'px');
+        });
+        var draggableOptions = {revert:'invalid',/*scope:'tasks',*/tolerance:'pointer',
+                    connectToSortable: '.list-items'};
+        $('#active, #assigned, #icebucket').droppable({hoverClass: "drop-hover"})
+                .sortable({connectWith:'.list-items', containment:'#main',revert:true,
+                                receive: function(event, ui){
+                                    Tracker.updateTaskProperty(ui.item.find('i.edit-task').data('id'), 'state', $(this).attr('id'));
+                                }
+                        });
+        $('.item')
+                .draggable(draggableOptions);
+        var taskTemplate = H.compile($('#collapsed-view-template').html());
+        /*$feedback.text('Loading data');
+        $.getJSON('data/tasks.json',function(data){
+            $feedback.text('Laying out data');
+           data.forEach(function(d){
+               $('#'+ d.statename.toLowerCase()).append(taskTemplate(d));
+               $feedback.text('');
+           });
+        });*/
+        $feedback.text('Laying out data from local storage');
+        Tracker.data.forEach(function(d,i){
+            if(i!=undefined){
+                d.index = i+"";
+            }
+           $('#'+ d.state.toLowerCase()).append(taskTemplate(d));
+
+        });
+        $feedback.text('');
+        $(document).on('submit', '#add-task', function(){
+            var $this =$(this);
+            /*$.post($this.attr('action'), $this.serialize(), function(data){
+                if(data.ok){*/
+            var taskObject = {"title":$this.find('#title').val(),
+                    "owner": $this.find('#owner').val(),
+                    "chaptertitle": $this.find('#chaptertitle').val(),
+                    "state":"Icebucket"};
+                    Tracker.addTask(taskObject);
+                    $('#icebucket').append(taskTemplate(taskObject));
+                
+                $('#add').popover('hide');
+                /*}
+            }, 'json');*/
+            return false;
+        })
+                .on('reset', function(){
+                    $('#add').popover('hide');
+                });
+        $('.hideCompleted').on('change', function(){
+           $(this).parents('.panel').find('.disabled').toggleClass('hide')
+        });
+    })(window.jQuery, Handlebars);
+</script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+/* boostrap modifications */
+a{
+    color: #4B2582;
+}
+.navbar .nav > li > a{
+    color: #4B2582;
+}
+.popover{
+    width: 245px;
+}
+/* colors made from http://charliepark.org/bootstrap_buttons/ */
+
+.btn-primary { background-color: hsl(270, 48%, 15%) !important; background-repeat: repeat-x; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#aa82d3", endColorstr="#261338"); background-image: -khtml-gradient(linear, left top, left bottom, from(#aa82d3), to(#261338)); background-image: -moz-linear-gradient(top, #aa82d3, #261338); background-image: -ms-linear-gradient(top, #aa82d3, #261338); background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #aa82d3), color-stop(100%, #261338)); background-image: -webkit-linear-gradient(top, #aa82d3, #261338); background-image: -o-linear-gradient(top, #aa82d3, #261338); background-image: linear-gradient(#aa82d3, #261338); border-color: #261338 #261338 hsl(270, 48%, 2%); color: #fff !important; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.85); -webkit-font-smoothing: antialiased; }
+
+/* custom selectos */
+
+/* right-offset doesn't exist in bootstrap, should be a pull-request*/
+.right-offset1{
+    margin-right: 100px;
+}
+.right-offset2{
+    margin-right: 180px;
+}
+
+.list-items {
+    background-color: #d3d3d3;
+    -ms-overflow-y: auto;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.item {
+    cursor: move;
+    padding: 5px;
+    border-bottom: 1px solid #CCCCCC;
+    background-color: #fff;
+}
+
+.scrollable-x {
+    -ms-overflow-x: scroll;
+    overflow-x: scroll;
+}
+
+.scrollable-x .item {
+    cursor: auto;
+}
+
+.item form {
+    margin-bottom: 5px;
+}
+
+.item .form-horizontal .control-label {
+    width: 60px;
+}
+
+.item .form-horizontal .controls {
+    margin-left: 70px;
+}
+
+.item .form-horizontal .form-actions {
+    padding-left: 0;
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+
+.item .form-horizontal .control-group {
+    margin-bottom: 10px;
+}
+
+.item label,.item input,.item button,.item select,.item textarea {
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 16px;
+}
+
+.item input,.item textarea,.item .uneditable-input {
+    width: 186px;
+}
+
+.item textarea {
+    min-height: 60px;
+}
+
+.item select,.item textarea,.item input[type="text"],.item input[type="password"],.item input[type="datetime"],.item input[type="datetime-local"],.item input[type="date"],.item input[type="month"],.item input[type="time"],.item input[type="week"],.item input[type="number"],.item input[type="email"],.item input[type="url"],.item input[type="search"],.item input[type="tel"],.item input[type="color"],.item .uneditable-input {
+    height: 18px;
+    padding: 2px 4px;
+    border-radius: 2px;
+}
+
+/*.drop-hover {
+    
+background-color:  light;
+    
+}
+
+*/
+.drop-hover:before {
+    content: "";
+    position: absolute;
+    border-top: 3px dashed white;
+    border-left: 3px dashed white;
+    width: 100%;
+    height: 100%;
+    left: 0;
+}
+
+.drop-hover:after {
+    content: "";
+    position: absolute;
+    border-right: 3px dashed white;
+    width: 100%;
+    height: 100%;
+    right: 0;
+}
+
+#main {
+    -ms-overflow-y: hidden;
+    overflow-y: hidden;
+    position: relative;
+}
+
+.disabled {
+    background-color: #e3e3e3;
+}
+
+.edit-task {
+    cursor: pointer;
+}
+
+.modal-header .close {
+    font-size: 62px;
+}
+
+.panel {
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 4px 4px 4px;
+    position: relative;
+}
+
+.panel .accordion-inner {
+    padding: 0;
+}
+
+.panel header {
+    background-color: #add8e6;
+    padding: 5px;
+}
+
+.panel .accordion-heading {
+    text-align: center;
+}
+.panel .accordion-heading a {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+.center-right{
+    position: absolute;
+    left: 50%;
+    top: 42px;
+    z-index: 100;
+}
+
+.center-left{
+    padding-left: 10px;
+    padding-right: 10px;
+    position: relative;
+    left: -50%;
+    background-color: yellow;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#brand{
+    background: url("../img/booki_logo_topleft.png") no-repeat 20px -3px;
+    padding-left: 150px;
+}
+
+.task-active{
+    background-color: #2e8b57;
+}
+.task-noactive{
+    background-color: #4169e1;
+}

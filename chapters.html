@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/booktype.css">
+</head>
+<body>
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" id="brand" href="./" >
+            Tracker: Principles of Creativity in the Workplace</a>
+
+            <!--<div class="pull-right">
+                <ul class="nav">
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Reports</a></li>
+                    <li><a href="#">Help</a></li>
+                    <li><a href="#">Login</a></li>
+                </ul>
+            </div>-->
+        </div>
+    </div>
+</div>
+<div></div>
+<div class="navbar">
+    <div class="center-right"><div class="center-left" id="feedback"></div></div>
+    <div class="navbar-inner">
+        <div class="container">
+        <ul class="nav">
+            <li><a href="./">Tasks</a></li>
+            <li><a href="users.html">Users</a></li>
+            <li class="active"><a href="chapters.html">Chapters</a></li>
+        </ul>
+        <div class="pull-right"><button id="add" class="btn btn-primary pull-left right-offset1">Add task</button>
+        </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid scrollable-x" id="main">
+    <div class="row">
+        <script type="text/x-handlebars-template" id="panelTemplate">
+            <div class="span4 panel" id="{{normalize chaptertitle}}">
+                <header>{{chaptertitle}}</header>
+                <div class="list-items">
+                    <div class="accordion-group">
+                        <div class="accordion-heading task-active"><a class="accordion-toggle" data-toggle="collapse" href="#active{{normalize chaptertitle}}">Active</a>
+                        </div>
+                        <div class="accordion-body collapse in" id="active{{normalize chaptertitle}}">
+                            <div class="accordion-inner">
+                                <ul class="unstyled list-items">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                        <div class="accordion-heading task-noactive"><a class="accordion-toggle" data-toggle="collapse" href="#notactive{{normalize chaptertitle}}">Not
+                            Active</a></div>
+                        <div class="accordion-body collapse in" id="notactive{{normalize chaptertitle}}">
+                            <div class="accordion-inner">
+                                <ul class="unstyled list-items">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>
+        <script type="text/x-handlebars-template" id="collapsedTaskTemplate">
+            <li class="item {{#if completed}}disabled{{/if}}">
+                {{#if state}}<span class="pull-right muted">{{state}}</span>{{/if}}
+                <i class="icon-edit edit-task" {{#if index}}data-id="{{index}}"{{/if}}></i>
+                <a class="taskdetail" {{#if index}}data-id="{{index}}"{{/if}} href="#">{{title}}{{#if owner}}</a><br/><span class="muted">-{{owner}}-</span>{{/if}}
+            </li>
+        </script>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.23.custom.min.js"></script>
+<script type="text/javascript" src="js/handlebars-1.0.rc.1.js"></script>
+<script type="text/javascript" src="js/tracker.js"></script>
+<script type="text/javascript">
+    (function($, H){
+        var settings = {
+            //container set to 100% width
+            main: $('#main'),
+            //container with overflowed width
+            rowClass : '.row',
+            taskPanelTemplate: $('#panelTemplate').html(),
+            collapsedTaskTemplate: $('#collapsedTaskTemplate').html(),
+            //a property in the data, example [{'propertyFilter':value}]
+            propertyFilter: 'state'
+        };
+
+        UI.setSettings(settings).init();
+
+    })(window.jQuery, Handlebars);
+</script>
+</body>
+</html>
